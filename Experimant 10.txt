@@ -1,0 +1,131 @@
+mysql> select * from product;
++-------+----------------+-------+
+| p_id  | p_name         | price |
++-------+----------------+-------+
+| 10001 | soap           |    34 |
+| 10002 | coconut oil    |   140 |
+| 10003 | chilly powder  |    66 |
+| 10004 | coconut oil    |   162 |
+| 10005 | pen            |    34 |
+| 10006 | pencil         |    12 |
+| 10007 | notebook       |    82 |
+| 10009 | scale          |    54 |
+| 10010 | eraser         |    30 |
+| 10011 | instrument box |   140 |
+| 10012 | writing pad    |    75 |
++-------+----------------+-------+
+11 rows in set (0.01 sec)
+
+mysql> select * from customer;
++---------+--------------+------------+------------+-----------+
+| cust_id | address      | city       | ph_no      | name      |
++---------+--------------+------------+------------+-----------+
+|    1001 | court road   | eranakulam | 9876543210 | Arun      |
+|    1002 | Velippattil  | malappuram | 9446464694 | Sabastian |
+|    1003 | Kizhakkethil | trivandrum | 9900998800 | Arshad    |
+|    1004 | Kunnath      | eranakulam | 8866442211 | Jacob     |
+|    1005 | Alayil       | kasarkode  | NULL       | Mebin     |
+|    1006 | Kizhakkethil | kozhikode  | NULL       | Subin     |
++---------+--------------+------------+------------+-----------+
+6 rows in set (0.00 sec)
+
+================================================================================
+================================================================================
+
+1. List product name, price except soap on price order.
+
+mysql> select p_name,price from product where p_name != 'soap';
++----------------+-------+
+| p_name         | price |
++----------------+-------+
+| coconut oil    |   140 |
+| chilly powder  |    66 |
+| coconut oil    |   162 |
+| pen            |    34 |
+| pencil         |    12 |
+| notebook       |    82 |
+| scale          |    54 |
+| eraser         |    30 |
+| instrument box |   140 |
+| writing pad    |    75 |
++----------------+-------+
+10 rows in set (0.00 sec)
+
+
+
+2. Find minimum, maximum and average price of products.
+
+mysql> select min(price) from product;
++------------+
+| min(price) |
++------------+
+|         12 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select max(price) from product;
++------------+
+| max(price) |
++------------+
+|        162 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(price) from product;
++------------+
+| avg(price) |
++------------+
+|    75.3636 |
++------------+
+1 row in set (0.00 sec)
+
+
+3. Find number of customers in each city.
+
+mysql> SELECT city,count(city) as count FROM customer GROUP BY city;
++------------+-------+
+| city       | count |
++------------+-------+
+| eranakulam |     2 |
+| malappuram |     1 |
+| trivandrum |     1 |
+| kasarkode  |     1 |
+| kozhikode  |     1 |
++------------+-------+
+5 rows in set (0.00 sec)
+
+
+
+4. Find number of customers in each city, only include city with more than 1 customers.
+
+mysql> SELECT city,count(city) AS count FROM customer  GROUP BY city HAVING count(city) > 1;
++------------+-------+
+| city       | count |
++------------+-------+
+| eranakulam |     2 |
++------------+-------+
+1 row in set (0.01 sec)
+
+
+
+5. Show data as displayed ‘who, where’ Eg: ‘customer1 lives in ekm’.
+
+mysql> SELECT CONCAT(name, ' lives in ', city) AS 'who, where' from customer;
++-------------------------------+
+| who, where                    |
++-------------------------------+
+| Arun lives in eranakulam      |
+| Sabastian lives in malappuram |
+| Arshad lives in trivandrum    |
+| Jacob lives in eranakulam     |
+| Mebin lives in kasarkode      |
+| Subin lives in kozhikode      |
++-------------------------------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+
